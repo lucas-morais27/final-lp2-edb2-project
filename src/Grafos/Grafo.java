@@ -2,6 +2,7 @@ package Grafos;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import Trees.ConjuntoDisjunto;
 
@@ -42,8 +43,11 @@ public class Grafo<TIPO> {
     }
 
     public void arvoreGeradoraMinima(){
-        ConjuntoDisjunto conjunto = new ConjuntoDisjunto();
+        ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
+        ArrayList<Aresta<TIPO>> allArestas = this.arestas;
+        ArrayList<Aresta<TIPO>> marcados;
+        floresta.criaConjunto(this.vertices);
+        allArestas.sort(null);
+        //allArestas.forEach(dado -> System.out.println(dado.getCusto() + " " + dado.getInicio().getDado() + " " + dado.getFim().getDado()));
     }
-
-    
 }

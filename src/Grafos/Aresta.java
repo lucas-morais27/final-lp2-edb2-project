@@ -1,6 +1,6 @@
 package Grafos;
 
-public class Aresta<TIPO>{
+public class Aresta<TIPO> implements Comparable<Aresta<TIPO>>{
     private int custo;
     private Vertice<TIPO> inicio;
     private Vertice<TIPO> fim;
@@ -21,5 +21,10 @@ public class Aresta<TIPO>{
 
     public Vertice<TIPO> getFim() {
         return fim;
+    }
+
+    @Override
+    public int compareTo(Aresta<TIPO> o) {
+        return this.custo - o.getCusto();
     }
 }

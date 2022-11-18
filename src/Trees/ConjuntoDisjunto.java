@@ -5,25 +5,25 @@ import java.util.HashMap;
 
 import Grafos.Vertice;
 
-public class ConjuntoDisjunto{
-    private HashMap<Vertice<String>, Vertice<String>> raiz = new HashMap<>();
+public class ConjuntoDisjunto<TIPO> {
+    private HashMap<Vertice<TIPO>, Vertice<TIPO>> raiz = new HashMap<>();
 
-    public void criaConjunto(ArrayList<Vertice<String>> vertices){
-        for(Vertice<String> dado : vertices){
+    public void criaConjunto(ArrayList<Vertice<TIPO>> vertices){
+        for(Vertice<TIPO> dado : vertices){
             raiz.put(dado, dado);
         }
     };
 
-    public Vertice<String> encontraElemento(Vertice<String> vertice){
+    public Vertice<TIPO> encontraElemento(Vertice<TIPO> vertice){
         if(raiz.get(vertice) == vertice){
             return vertice;
         }
         return encontraElemento(raiz.get(vertice));
     };
 
-    public void uneElementos(Vertice<String> vertice1, Vertice<String> vertice2){
-        Vertice<String> x = encontraElemento(vertice1);
-        Vertice<String> y = encontraElemento(vertice2);
+    public void uneElementos(Vertice<TIPO> vertice1, Vertice<TIPO> vertice2){
+        Vertice<TIPO> x = encontraElemento(vertice1);
+        Vertice<TIPO> y = encontraElemento(vertice2);
         raiz.put(x, y);
     };
 }
