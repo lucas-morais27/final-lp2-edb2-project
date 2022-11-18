@@ -36,7 +36,5 @@ public class App {
 
         System.out.println(grafo.getAresta(4).getCusto() + " " + grafo.getAresta(4).getInicio().getDado() + " " + grafo.getAresta(4).getFim().getDado());
 
-
-
     }
 }

@@ -3,6 +3,8 @@ package Grafos;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import Trees.ConjuntoDisjunto;
+
 public class Grafo<TIPO> {
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
@@ -37,6 +39,10 @@ public class Grafo<TIPO> {
 
     public Aresta<TIPO> getAresta(int indice){
         return arestas.get(indice);
+    }
+
+    public void arvoreGeradoraMinima(){
+        ConjuntoDisjunto conjunto = new ConjuntoDisjunto();
     }
 
     
