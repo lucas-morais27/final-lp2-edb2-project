@@ -5,29 +5,36 @@ import Grafos.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        /*Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         List<String> comandos = new LinkedList<>();
         String linha;
         while(input.hasNextLine()){
             linha = input.nextLine();
             comandos.add(linha);
         };
-        comandos.forEach(dado -> System.out.println(dado));
-        input.close();*/
-
+        input.close();
+        int numCasas = 0, numMaxArestas = 0;
         Grafo<String> grafo = new Grafo<>();
-        grafo.addVertice("Casa1");
-        grafo.addVertice("Casa2");
-        grafo.addVertice("Casa3");
-        grafo.addVertice("Casa4");
-        grafo.addVertice("Casa5");
 
-        grafo.addAresta(5, "Casa1", "Casa2");
-        grafo.addAresta(2, "Casa2", "Casa3");
-        grafo.addAresta(53, "Casa3", "Casa4");
-        grafo.addAresta(13, "Casa4", "Casa5");
+        for(int ii=0; ii < comandos.size(); ii++){
+            if(ii==0){
+                numCasas = Integer.parseInt(comandos.get(ii).split(" ")[0]);
+                for(int bb=1; bb <= numCasas; bb++){
+                    grafo.addVertice("Casa" + bb);
+                }
+                numMaxArestas = Integer.parseInt(comandos.get(ii).split(" ")[1]);
+            }else{
+                String[] custos = comandos.get(ii).split(" ");
+                int count = ii;
+                for(String dado : custos){
+                    grafo.addAresta(Integer.parseInt(dado), "Casa" + ii, "Casa" + (count+1));
+                    count++;
+                }
+            }
+        }
+        System.out.println(numCasas + " " + numMaxArestas);
 
-        System.out.println(grafo.getAresta(2).getCusto() + " " + grafo.getAresta(2).getInicio().getDado() + " " + grafo.getAresta(2).getFim().getDado());
+        System.out.println(grafo.getAresta(4).getCusto() + " " + grafo.getAresta(4).getInicio().getDado() + " " + grafo.getAresta(4).getFim().getDado());
 
 
 
