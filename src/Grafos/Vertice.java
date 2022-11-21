@@ -14,7 +14,7 @@ public class Vertice<TIPO> {
     }
 
     public TIPO getDado(){
-        return dado;
+        return this.dado;
     }
 
     public void setDado(TIPO dado){
@@ -28,5 +28,12 @@ public class Vertice<TIPO> {
     public void addArestaSaida(Aresta<TIPO> aresta){
         this.arestasSaida.add(aresta);
     }
+
+    public int getQntArestasEntrada() {
+        return arestasEntrada.size();
+    }
     
+    public int getQntArestasSaida() {
+        return arestasSaida.size();
+    }
 }

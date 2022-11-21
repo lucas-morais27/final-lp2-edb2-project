@@ -13,3 +13,7 @@ Executar:
 ```
     git reset --hard
 ```
+
+Checklist
+ - Implementar o unir dos conjuntos de forma correta
+ - 

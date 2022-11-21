@@ -1,9 +1,12 @@
 package Grafos;
 
-import java.sql.Time;
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
+import Trees.Arvore;
 import Trees.ConjuntoDisjunto;
 
 public class Grafo<TIPO> {
@@ -42,12 +45,28 @@ public class Grafo<TIPO> {
         return arestas.get(indice);
     }
 
-    public void arvoreGeradoraMinima(){
+    public void arvoreGeradoraMinima(int numMaxArestas){
         ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
         ArrayList<Aresta<TIPO>> allArestas = this.arestas;
-        ArrayList<Aresta<TIPO>> marcados;
+        ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
+        Aresta<TIPO> atual;
+        int custoMinimo = 0;
+
         floresta.criaConjunto(this.vertices);
         allArestas.sort(null);
-        //allArestas.forEach(dado -> System.out.println(dado.getCusto() + " " + dado.getInicio().getDado() + " " + dado.getFim().getDado()));
+        //Arvore<TIPO> arvoreMinima = new Arvore<>();
+
+        while(allArestas.size() > 0){
+            atual = allArestas.remove(0);
+            if(floresta.uneElementos(atual.getInicio(), atual.getFim(), numMaxArestas)){
+                custoMinimo += atual.getCusto();
+                arestasValidas.add(atual);
+            }
+        }
+        for(Aresta<TIPO> dado : arestasValidas){
+            System.out.println(dado.getInicio().getDado() + " --> " + dado.getFim().getDado());
+        }
+        System.out.println(custoMinimo);
+        floresta.imprimeConjunto(this.vertices, floresta);
     }
 }
