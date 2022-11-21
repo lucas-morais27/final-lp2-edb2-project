@@ -1,6 +1,4 @@
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,7 +6,7 @@ import java.util.Scanner;
 import Grafos.*;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         //Path path1 = Paths.get(args[0]);
         //List<String> comandos = Files.readAllLines(path1);
         Scanner input = new Scanner(System.in);

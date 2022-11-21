@@ -1,15 +1,15 @@
 package Grafos;
 
-import java.security.KeyStore.Entry;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import Trees.Arvore;
 import Trees.ConjuntoDisjunto;
 
-public class Grafo<TIPO> {
+public class Grafo<TIPO>{
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
 
@@ -45,16 +45,24 @@ public class Grafo<TIPO> {
         return arestas.get(indice);
     }
 
-    public void arvoreGeradoraMinima(int numMaxArestas){
+    public void arvoreGeradoraMinima(int numMaxArestas) throws IOException{
+        // Algoritmo de Kruskal para arvore geradora minima
         ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
         ArrayList<Aresta<TIPO>> allArestas = this.arestas;
         ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
         Aresta<TIPO> atual;
-        int custoMinimo = 0;
 
         floresta.criaConjunto(this.vertices);
         allArestas.sort(null);
-        //Arvore<TIPO> arvoreMinima = new Arvore<>();
+        int custoMinimo = 0;
+
+        // Criação e escrita no arquivo da solução de menor custo
+        File solution = new File("src/arquivos/solucaoMenorCusto.txt");
+        if(!solution.exists()){
+            solution.createNewFile();
+        }
+        FileWriter fw = new FileWriter(solution);
+        BufferedWriter bw = new BufferedWriter(fw);
 
         while(allArestas.size() > 0){
             atual = allArestas.remove(0);
@@ -64,9 +72,12 @@ public class Grafo<TIPO> {
             }
         }
         for(Aresta<TIPO> dado : arestasValidas){
-            System.out.println(dado.getInicio().getDado() + " --> " + dado.getFim().getDado());
+            bw.write(dado.getInicio().getDado() + " --> " + dado.getFim().getDado());
+            bw.newLine();
         }
-        System.out.println(custoMinimo);
+        bw.write(Integer.toString(custoMinimo));
+        bw.close();
+        fw.close();
         floresta.imprimeConjunto(this.vertices, floresta);
     }
 }

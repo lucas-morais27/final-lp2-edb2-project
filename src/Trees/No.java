@@ -1,19 +1,17 @@
 package Trees;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
 
 public class No<TIPO> {
     public TIPO valor;   // valor do nó
-    public Map<Integer, No> filhos;
+    public LinkedList<No<TIPO>> filhos;
 
     public No(TIPO valor){
         this.valor = valor;
-        this.filhos = new HashMap<>();
+        this.filhos = new LinkedList<>();
     }
 
-    public void setFilhos(int custo, No filho) {
-        this.filhos.put(custo, filho);
+    public void setFilhos(No<TIPO> filho) {
+        this.filhos.add(filho);
     }
 }
