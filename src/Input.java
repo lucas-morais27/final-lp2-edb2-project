@@ -7,8 +7,6 @@ import Grafos.*;
 
 public class Input {
     private Grafo<String> grafo = new Grafo<>();
-    private int numCasas;
-    private int numMaxArestas;
     private List<String> linhas = new LinkedList<>();
 
     public Input(String entrada) throws IOException {
@@ -23,20 +21,20 @@ public class Input {
                 break;
             }		
 		}
+
         try {
+            fileRead.close();
             buffRead.close();
-        } catch (Exception e) {
-            System.out.println("Arquivo não pôde ser fechado.");
+        } catch (Exception e1) {
+            System.out.println("Arquivo não pôde ser fechado e/ou buffer não pode ser fechado.");
+        }
+
+        try {
+            buildGrafo();
+        } catch (Exception e2) {
+            System.out.println("Erro ao gerar o grafo.");
         }
 		
-    }
-
-    public int getNumCasas(){
-        return this.numCasas;
-    }
-
-    public int getNumMaxArestas(){
-        return this.numMaxArestas;
     }
 
     public Grafo<String> getGrafo(){
@@ -46,13 +44,12 @@ public class Input {
     public void buildGrafo() {
         for (int ii = 0; ii < linhas.size(); ii++) {
             if (ii == 0) {
-                numCasas = Integer.parseInt(linhas.get(ii).split(" ")[0]);
-
-                for (int jj = 0; jj < numCasas; jj++) {
+                grafo.setNumCasas(Integer.parseInt(linhas.get(ii).split(" ")[0]));
+                grafo.setNumMaxArestas(Integer.parseInt(linhas.get(ii).split(" ")[1]));
+                for (int jj = 0; jj < grafo.getNumCasas(); jj++) {
                     grafo.addVertice("Casa" + jj);
                 }
-
-                numMaxArestas = Integer.parseInt(linhas.get(ii).split(" ")[1]);
+                
             } else {
                 String[] custos = linhas.get(ii).split(" ");
                 int count = ii;

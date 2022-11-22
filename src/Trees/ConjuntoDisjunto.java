@@ -18,7 +18,8 @@ public class ConjuntoDisjunto<TIPO> {
             rank.put(dado, 0);
         }
     };
-
+    
+    // ALGUM ERRO AQUIIIIIIIIIIIIIIII vvvvvvvvvvvvvvvvvvv
     public Vertice<TIPO> encontraElemento(Vertice<TIPO> vertice){
         if(!raiz.get(vertice).getDado().equals(vertice.getDado())){
             vertice = encontraElemento(raiz.get(vertice));
