@@ -1,0 +1,5 @@
+.vscode
+/bin
+/src/Grafos/*.class
+/src/Trees/*.class
+*.class
