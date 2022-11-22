@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import Trees.Arvore;
 import Trees.ConjuntoDisjunto;
 
@@ -38,9 +37,8 @@ public class Grafo<TIPO> {
         Vertice<TIPO> inicio = getVertice(dadoInicio);
         Vertice<TIPO> fim = getVertice(dadoFim);
         Aresta<TIPO> nova = new Aresta<>(custo, inicio, fim);
-        //ERRO NESSAS LINHAS vvvvv
-        //inicio.addArestaSaida(nova);
-        //fim.addArestaEntrada(nova);
+        inicio.addArestaSaida(nova);
+        fim.addArestaEntrada(nova);
         arestas.add(nova);
     }
 
@@ -89,32 +87,6 @@ public class Grafo<TIPO> {
 
         escreveSolucao(arestasValidas, custoMinimo);
         floresta.imprimeConjunto(this.vertices, floresta);
-
-        /*
-        Criação e escrita no arquivo da solução de menor custo
-        File solution = new File("src/arquivos/solucaoMenorCusto.txt");
-        if(!solution.exists()){
-            solution.createNewFile();
-        }
-        FileWriter fw = new FileWriter(solution);
-        BufferedWriter bw = new BufferedWriter(fw);
-
-        while(allArestas.size() > 0){
-            atual = allArestas.remove(0);
-            if(floresta.uneElementos(atual.getInicio(), atual.getFim(), numMaxArestas)){
-                custoMinimo += atual.getCusto();
-                arestasAux.add(atual);
-            }
-        }
-        for(Aresta<TIPO> dado : arestasAux){
-            bw.write(dado.getInicio().getDado() + " --> " + dado.getFim().getDado());
-            bw.newLine();
-        }
-        bw.write(Integer.toString(custoMinimo));
-        bw.close();
-        fw.close();
-        floresta.imprimeConjunto(this.vertices, floresta);
-        */
     }
 
     public void escreveSolucao(ArrayList<Aresta<TIPO>> arestas, int custo) throws IOException {
