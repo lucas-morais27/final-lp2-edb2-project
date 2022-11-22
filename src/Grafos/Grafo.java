@@ -18,6 +18,14 @@ public class Grafo<TIPO>{
         this.vertices = new ArrayList<>();
     }
 
+    public ArrayList<Aresta<TIPO>> getArestas() {
+        return this.arestas;
+    }
+
+    public ArrayList<Vertice<TIPO>> getVertices() {
+        return this.vertices;
+    }
+
     public void addVertice(TIPO dado){
         Vertice<TIPO> novo = new Vertice<>(dado);
         this.vertices.add(novo);
@@ -27,8 +35,9 @@ public class Grafo<TIPO>{
         Vertice<TIPO> inicio = getVertice(dadoInicio);
         Vertice<TIPO> fim = getVertice(dadoFim);
         Aresta<TIPO> nova = new Aresta<>(custo, inicio, fim);
-        inicio.addArestaSaida(nova);
-        fim.addArestaEntrada(nova);
+        //ERRO NESSAS LINHAS vvvvv
+        //inicio.addArestaSaida(nova);
+        //fim.addArestaEntrada(nova);
         arestas.add(nova);
     }
 
