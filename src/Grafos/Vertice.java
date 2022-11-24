@@ -36,4 +36,9 @@ public class Vertice<TIPO> {
     public int getQntArestasSaida() {
         return arestasSaida.size();
     }
+
+    public void clearArestas(){
+        arestasSaida.clear();
+        arestasEntrada.clear();
+    }
 }

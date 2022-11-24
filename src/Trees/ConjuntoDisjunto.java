@@ -19,7 +19,6 @@ public class ConjuntoDisjunto<TIPO> {
         }
     };
     
-    // ALGUM ERRO AQUIIIIIIIIIIIIIIII vvvvvvvvvvvvvvvvvvv
     public Vertice<TIPO> encontraElemento(Vertice<TIPO> vertice){
         if(!raiz.get(vertice).getDado().equals(vertice.getDado())){
             vertice = encontraElemento(raiz.get(vertice));
@@ -81,6 +80,14 @@ public class ConjuntoDisjunto<TIPO> {
         }
         return true;
     };
+
+    public void clearConjunto(){
+        raiz.clear();
+        marcados.clear();
+        rank.clear();
+        this.count1 = 0;
+        this.count2 = 0;
+    }
 
     public void imprimeConjunto(ArrayList<Vertice<TIPO>> vertices, ConjuntoDisjunto<TIPO> floresta){
         for(Vertice<TIPO> dado : vertices){
