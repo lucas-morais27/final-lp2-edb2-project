@@ -7,7 +7,7 @@ import Grafos.*;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        Scanner input = new Scanner(System.in);
+        /*Scanner input = new Scanner(System.in);
         List<String> comandos = new LinkedList<>();
         String linha;
         while(input.hasNextLine()){
@@ -32,10 +32,10 @@ public class App {
                     count++;
                 }
             }
-        }
-        //Input arquivo = new Input(args[0]);
-        //Grafo<String> grafo = arquivo.getGrafo();
-        grafo.arvoreGeradoraMinima(numMaxArestas);
-        grafo.allArvoresGeradoras(numMaxArestas);
+        }*/
+        Input arquivo = new Input(args[0]);
+        Grafo<String> grafo = arquivo.getGrafo();
+        //grafo.arvoreGeradoraMinima(numMaxArestas);
+        grafo.allArvoresGeradoras();
     }
 }

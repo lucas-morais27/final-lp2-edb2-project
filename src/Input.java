@@ -44,9 +44,9 @@ public class Input {
     public void buildGrafo() {
         for (int ii = 0; ii < linhas.size(); ii++) {
             if (ii == 0) {
-                grafo.setNumCasas(Integer.parseInt(linhas.get(ii).split(" ")[0]));
+                grafo.setNumVertices(Integer.parseInt(linhas.get(ii).split(" ")[0]));
                 grafo.setNumMaxArestas(Integer.parseInt(linhas.get(ii).split(" ")[1]));
-                for (int jj = 1; jj <= grafo.getNumCasas(); jj++) {
+                for (int jj = 1; jj <= grafo.getNumVertices(); jj++) {
                     grafo.addVertice("Casa" + jj);
                 }
                 
