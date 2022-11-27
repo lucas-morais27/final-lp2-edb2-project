@@ -4,16 +4,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import Trees.ConjuntoDisjunto;
+
 import combinacoes.ArvoresGeradoras;
+import conjuntos.ConjuntoDisjunto;
 
 
 public class Grafo<TIPO> {
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
     private ConjuntoDisjunto<TIPO> floresta;
-    //private ArrayList<Aresta<TIPO>> elos;
-    //private ArrayList<ArrayList<Aresta<TIPO>>> allArvoresGeradoras;
     private ArvoresGeradoras<TIPO> arvoresGeradoras;
     private int numVertices;
     private int numMaxArestas;
@@ -22,7 +21,6 @@ public class Grafo<TIPO> {
         this.arestas = new ArrayList<>();
         this.vertices = new ArrayList<>();
         this.floresta = new ConjuntoDisjunto<>();
-        //this.allArvoresGeradoras = new ArrayList<ArrayList<Aresta<TIPO>>>();;
     }
 
     public ArrayList<Aresta<TIPO>> getArestas() {
@@ -123,15 +121,11 @@ public class Grafo<TIPO> {
         return arestasValidas;
     }*/
 
-    public String geradorArvores(ArrayList<Aresta<TIPO>> arvoreEmPotencial, int numMaxArestas) throws IOException{
-        //ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
+    public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial, int numMaxArestas) throws IOException{
         ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
         int custoTotal = 0;
 
         floresta.criaConjunto(this.vertices);
-        //System.out.println(arvoreEmPotencial.size());
-        //arvoreEmPotencial.forEach((dado) -> System.out.println(dado.getCusto() + " " + dado.getInicio().getDado() + "-->" + dado.getFim().getDado()));
-        //System.out.println();
         //clearEntradaeSaida(this.vertices);
         for(Aresta<TIPO> dado : arvoreEmPotencial){
             if(floresta.uneElementos(dado.getInicio(), dado.getFim(), numMaxArestas)){
@@ -141,75 +135,20 @@ public class Grafo<TIPO> {
                 arestasValidas.add(dado);
             }
         }
-        //arestasValidas.forEach((dado) -> System.out.println(dado.getCusto() + " " + dado.getInicio().getDado() + "-->" + dado.getFim().getDado()));
-        //System.out.println();
+
         if(arestasValidas.size() < this.vertices.size()-1){
             floresta.clearConjunto();
             return "false" + " " + 0;
         }else{
-            /*if(!floresta.validaConjunto(this.vertices)){
-                floresta.clearConjunto();
-                return "false" + " " + 0;
-            }*/
             floresta.clearConjunto();
             return "true" + " " + custoTotal;
-        }
-        //elos.forEach((dado) -> System.out.println(dado.getInicio().getDado() + "-->" + dado.getFim().getDado()));
-        //escreveSolucao(arestasValidas, custoTotal);
-        /*if(floresta.validaConjunto(this.vertices, floresta)){
-            floresta.clearConjunto();
-            return "true" + " " + custoTotal;
-        }else{
-            floresta.clearConjunto();
-            return "false";
-        }*/        
+        }   
     }
 
     public void allArvoresGeradoras()throws IOException{
-        //floresta.criaConjunto(this.vertices);
-        //LinkedList<Aresta<TIPO>> arestasValidas = arvoreGeradoraMinima(numMaxArestas);
         arvoresGeradoras = new ArvoresGeradoras<>(this, this.numMaxArestas);
         arvoresGeradoras.geraArvores();
-        //this.allArvoresGeradoras = .makeCombi(this.arestas, this.vertices.size()-1);
-        //allArvoresGeradoras = arvoresGeradoras.getResultadosPossiveis();
-        //System.out.println(allArvoresGeradoras.size());
-        //int count1=1;
-
-        /*for(ArrayList<Aresta<TIPO>> sequencia : allArvoresGeradoras){
-            sequencia.forEach((dado) -> System.out.println(dado.getInicio().getQntArestasEntrada() + " " + dado.getInicio().getQntArestasSaida() + "-->" + dado.getFim().getQntArestasEntrada() + " " + dado.getFim().getQntArestasSaida()));
-            String[] resultado = geradorArvores(sequencia, numMaxArestas).split(" ");
-            if(resultado[0].equals("true")){
-                escreveSolucao(sequencia, Integer.parseInt(resultado[1]), "src/arquivos/solucao" + count1 + ".txt");
-                count1++;
-            }
-        }*/
-        //arestasValidas.forEach((dado) -> System.out.println(dado.getInicio().getQntArestasEntrada() + " " + dado.getInicio().getQntArestasSaida() + "-->" + dado.getFim().getQntArestasEntrada() + " " + dado.getFim().getQntArestasSaida()));
-        //Aresta<TIPO> atual;
-        // Todas as arvores a partir dos elos
-        //int count1=1;
-        //elos.forEach((dado) -> System.out.println(dado.getInicio().getDado() + "-->" + dado.getFim().getDado()));
-        /*while(elos.size() > 0){
-            atual = elos.remove(0);
-            atual.getInicio().addArestaSaida(atual);
-            atual.getFim().addArestaEntrada(atual);
-            arestasValidas.addLast(atual);
-            Aresta<TIPO> temp1 = arestasValidas.get(0);
-            while(!temp1.equals(atual)){
-                temp1 = arestasValidas.removeFirst();
-                String[] resultado = geradorArvores(arestasValidas, numMaxArestas).split(" ");
-                if(resultado[0].equals("true")){
-                    escreveSolucao(arestasValidas, Integer.parseInt(resultado[1]), "src/arquivos/solucao" + count1 + ".txt");
-                    count1++;
-                }
-                arestasValidas.addLast(temp1);
-            }
-        }*/
-        //elos.forEach((dado) -> System.out.println(dado.getInicio().getDado() + "-->" + dado.getFim().getDado()));
-        //arestasValidas.forEach((dado) -> System.out.println(dado.getInicio().getQntArestasEntrada() + " " + dado.getInicio().getQntArestasSaida() + "-->" + dado.getFim().getQntArestasEntrada() + " " + dado.getFim().getQntArestasSaida()));
-        //floresta.clearConjunto();
-    }
-
-    public void allArvoresGeradorasPorCusto(int numMaxArestas){
+        //arvoresGeradoras.teste();
     }
 
     public void escreveSolucao(ArrayList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
@@ -223,9 +162,9 @@ public class Grafo<TIPO> {
 
         buffWrite.write(Integer.toString(custo));
 
-        try {
+        try{
             buffWrite.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             System.out.println("Arquivo de solução não pôde ser fechado.");
         }
 	}
