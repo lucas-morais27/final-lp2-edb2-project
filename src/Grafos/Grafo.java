@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import combinacoes.ArvoreGeradora;
 
 public class Grafo<TIPO> {
-    private ArrayList<Aresta<TIPO>> arestas;
-    private ArrayList<Vertice<TIPO>> vertices;
+    protected ArrayList<Aresta<TIPO>> arestas;
+    protected ArrayList<Vertice<TIPO>> vertices;
     private int numVertices;
     private int numMaxArestas;
 

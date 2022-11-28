@@ -29,7 +29,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
        
     private void combinacoes(ArrayList<Aresta<TIPO>> n, int left, int k) throws NumberFormatException, IOException {
         if (k == 0){
-            String[] resultado = validaArvore(tmp, numMaxArestas).split(" ");
+            String[] resultado = validaArvore(tmp).split(" ");
             if(resultado[0].equals("true")){
                 if(custoArvoreMinima == 0){
                     custoArvoreMinima = Integer.parseInt(resultado[1]);
@@ -96,15 +96,15 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         }
     }
     
-    public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial, int numMaxArestas) throws IOException{
+    public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial) throws IOException{
         ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
         ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
         int custoTotal = 0;
 
-        floresta.criaConjunto(this.vertices);
+        floresta.criaConjunto(vertices);
         //clearEntradaeSaida(this.vertices);
         for(Aresta<TIPO> dado : arvoreEmPotencial){
-            if(floresta.uneElementos(dado.getInicio(), dado.getFim(), numMaxArestas)){
+            if(floresta.uneElementos(dado.getInicio(), dado.getFim(), this.numMaxArestas)){
                 //dado.getInicio().addArestaSaida(dado);
                 //dado.getFim().addArestaEntrada(dado);
                 custoTotal += dado.getCusto();
@@ -112,7 +112,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
             }
         }
 
-        if(arestasValidas.size() < this.vertices.size()-1){
+        if(arestasValidas.size() < vertices.size()-1){
             //floresta.clearConjunto();
             return "false" + " " + 0;
         }else{
