@@ -10,15 +10,17 @@ import java.util.List;
 import Grafos.Aresta;
 import Grafos.Grafo;
 import Grafos.Vertice;
+import conjuntos.ConjuntoDisjunto;
 
 public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> tmp;
     private int numMaxArestas;
-    private int custoMinimo = 0;
+    private int custoArvoreMinima = 0;
 
     public ArvoreGeradora(ArrayList<Aresta<TIPO>> arestas, ArrayList<Vertice<TIPO>> vertices, int numMaxArestas) throws IOException {
+        super();
         this.tmp = new ArrayList<Aresta<TIPO>>();
         this.arestas = arestas;
         this.vertices = vertices;
@@ -27,13 +29,13 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
        
     private void combinacoes(ArrayList<Aresta<TIPO>> n, int left, int k) throws NumberFormatException, IOException {
         if (k == 0){
-            String[] resultado = validaArvore(tmp, vertices, numMaxArestas).split(" ");
+            String[] resultado = validaArvore(tmp, numMaxArestas).split(" ");
             if(resultado[0].equals("true")){
-                if(custoMinimo == 0){
-                    custoMinimo = Integer.parseInt(resultado[1]);
+                if(custoArvoreMinima == 0){
+                    custoArvoreMinima = Integer.parseInt(resultado[1]);
                 }else{
-                    if(custoMinimo > Integer.parseInt(resultado[1])){
-                        custoMinimo = Integer.parseInt(resultado[1]);
+                    if(custoArvoreMinima > Integer.parseInt(resultado[1])){
+                        custoArvoreMinima = Integer.parseInt(resultado[1]);
                     }
                 }
                 escreveSolucao(tmp, Integer.parseInt(resultado[1]), "../src/arquivos/solucao.txt");
@@ -75,7 +77,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
                 vetorString.add(s);
             }else{
                 if (Character.isDigit(c)) {
-                    if(Integer.parseInt(s) == this.custoMinimo){
+                    if(Integer.parseInt(s) == this.custoArvoreMinima){
                         vetorString.add(s);
                         escreveSolucao(vetorString);
                         break;
@@ -92,6 +94,30 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         } catch (Exception e1) {
             System.out.println("Arquivo não pôde ser fechado e/ou buffer não pode ser fechado.");
         }
-		
+    }
+    
+    public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial, int numMaxArestas) throws IOException{
+        ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
+        ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
+        int custoTotal = 0;
+
+        floresta.criaConjunto(this.vertices);
+        //clearEntradaeSaida(this.vertices);
+        for(Aresta<TIPO> dado : arvoreEmPotencial){
+            if(floresta.uneElementos(dado.getInicio(), dado.getFim(), numMaxArestas)){
+                //dado.getInicio().addArestaSaida(dado);
+                //dado.getFim().addArestaEntrada(dado);
+                custoTotal += dado.getCusto();
+                arestasValidas.add(dado);
+            }
+        }
+
+        if(arestasValidas.size() < this.vertices.size()-1){
+            //floresta.clearConjunto();
+            return "false" + " " + 0;
+        }else{
+            //floresta.clearConjunto();
+            return "true" + " " + custoTotal;
+        }   
     }
 }

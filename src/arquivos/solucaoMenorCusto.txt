@@ -1,5 +1,8 @@
-Casa1 --> Casa2
-Casa1 --> Casa5
-Casa2 --> Casa4
+Casa1 --> Casa4
+Casa2 --> Casa5
+Casa2 --> Casa6
+Casa3 --> Casa4
 Casa3 --> Casa5
-21
+Casa5 --> Casa7
+Casa6 --> Casa8
+115

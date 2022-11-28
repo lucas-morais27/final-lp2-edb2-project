@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import combinacoes.ArvoreGeradora;
-import conjuntos.ConjuntoDisjunto;
-
 
 public class Grafo<TIPO> {
     private ArrayList<Aresta<TIPO>> arestas;
@@ -65,6 +63,7 @@ public class Grafo<TIPO> {
     public void setNumMaxArestas(int numMaxArestas) {
         this.numMaxArestas = numMaxArestas;
     }
+
     public void setNumVertices(int numVertices) {
         this.numVertices = numVertices;
     }
@@ -73,29 +72,8 @@ public class Grafo<TIPO> {
         return numVertices;
     }
 
-    public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial, ArrayList<Vertice<TIPO>> vertices, int numMaxArestas) throws IOException{
-        ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
-        ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
-        int custoTotal = 0;
-
-        floresta.criaConjunto(vertices);
-        //clearEntradaeSaida(this.vertices);
-        for(Aresta<TIPO> dado : arvoreEmPotencial){
-            if(floresta.uneElementos(dado.getInicio(), dado.getFim(), numMaxArestas)){
-                //dado.getInicio().addArestaSaida(dado);
-                //dado.getFim().addArestaEntrada(dado);
-                custoTotal += dado.getCusto();
-                arestasValidas.add(dado);
-            }
-        }
-
-        if(arestasValidas.size() < vertices.size()-1){
-            //floresta.clearConjunto();
-            return "false" + " " + 0;
-        }else{
-            //floresta.clearConjunto();
-            return "true" + " " + custoTotal;
-        }   
+    public int getNumMaxArestas() {
+        return numMaxArestas;
     }
 
     public void allArvoresGeradoras() throws IOException {
