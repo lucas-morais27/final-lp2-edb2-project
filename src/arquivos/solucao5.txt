@@ -1,5 +1,0 @@
-Casa1 --> Casa2
-Casa1 --> Casa3
-Casa3 --> Casa4
-Casa4 --> Casa5
-81

@@ -1,5 +1,8 @@
 .vscode
 /bin
 /src/Grafos/*.class
-/src/Trees/*.class
+/src/combinacoes/*.class
+/src/conjuntos/*.class
+/src/permutacao/*.class
+/src/arquivos/solucao.txt
 *.class

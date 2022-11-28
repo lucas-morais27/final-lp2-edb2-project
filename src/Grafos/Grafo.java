@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import combinacoes.ArvoresGeradoras;
 import conjuntos.ConjuntoDisjunto;
@@ -75,52 +76,6 @@ public class Grafo<TIPO> {
         return numVertices;
     }
 
-    // Algoritmo de Kruskal para arvore geradora minima
-    /*public LinkedList<Aresta<TIPO>> arvoreGeradoraMinima(int numMaxArestas) throws IOException{
-        LinkedList<Aresta<TIPO>> arestasValidas = new LinkedList<>();
-        int custoTotal = 0;
-        //ArrayList<Aresta<TIPO>> temporario = new ArrayList<>(Arrays.asList(arestas.get(0), arestas.get(1), arestas.get(2)));
-        //Permutacao<TIPO> perm = new Permutacao<>();
-        //perm.permuta(temporario);
-
-        Combinacoes<TIPO> comb = new Combinacoes<>();
-        allArvoresGeradoras = comb.makeCombi(this.arestas, this.vertices.size()-1);
-
-
-        floresta.criaConjunto(this.vertices);
-        this.arestas.sort(null);
-        //arestas.forEach((dado) -> System.out.println(dado.getCusto() + " " + dado.getInicio().getDado() + "-->" + dado.getFim().getDado()));
-        clearEntradaeSaida(this.vertices);
-        for(Aresta<TIPO> dado : this.arestas){
-            Vertice<TIPO> x = floresta.encontraElemento(dado.getInicio());
-            Vertice<TIPO> y = floresta.encontraElemento(dado.getFim());
-            if(!x.getDado().equals(y.getDado())){
-                if(floresta.uneElementos(dado.getInicio(), dado.getFim(), numMaxArestas)){
-                    custoTotal += dado.getCusto();
-                    arestasValidas.add(dado);
-                }
-            }
-            if(floresta.uneElementos(dado.getInicio(), dado.getFim(), numMaxArestas)){
-                if(floresta.getRank(dado.getInicio()) >= floresta.getRank(dado.getFim())){
-                    dado.getInicio().addArestaEntrada(dado);
-                    dado.getFim().addArestaSaida(dado);
-                }else if(floresta.getRank(dado.getInicio()) < floresta.getRank(dado.getFim())){
-                    dado.getInicio().addArestaSaida(dado);
-                    dado.getFim().addArestaEntrada(dado);
-                }
-                custoTotal += dado.getCusto();
-                arestasValidas.add(dado);
-            }else{
-                this.elos.add(dado);
-            }
-        }
-        //elos.forEach((dado) -> System.out.println(dado.getInicio().getDado() + "-->" + dado.getFim().getDado()));
-        escreveSolucao(arestasValidas, custoTotal, "src/arquivos/solucaoMenorCusto.txt");
-        //floresta.imprimeConjunto(this.vertices, floresta);
-        floresta.clearConjunto();
-        return arestasValidas;
-    }*/
-
     public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial, int numMaxArestas) throws IOException{
         ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
         int custoTotal = 0;
@@ -145,14 +100,29 @@ public class Grafo<TIPO> {
         }   
     }
 
-    public void allArvoresGeradoras()throws IOException{
+    public void allArvoresGeradoras() throws IOException {
         arvoresGeradoras = new ArvoresGeradoras<>(this, this.numMaxArestas);
         arvoresGeradoras.geraArvores();
-        //arvoresGeradoras.teste();
+    }
+
+    public void escreveSolucao(LinkedList<String> lista)  throws IOException {
+        FileWriter fileWriter = new FileWriter("../src/arquivos/solucaoMenorCusto.txt");
+        BufferedWriter buffWrite = new BufferedWriter(fileWriter);
+        
+        for(var dado : lista){
+            buffWrite.write(dado);
+            buffWrite.newLine();
+        }
+
+        try{
+            buffWrite.close();
+        } catch (Exception e){
+            System.out.println("Arquivo de solução não pôde ser fechado.");
+        }
     }
 
     public void escreveSolucao(ArrayList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
-        FileWriter fileWriter = new FileWriter(arquivo);
+        FileWriter fileWriter = new FileWriter(arquivo, true);
         BufferedWriter buffWrite = new BufferedWriter(fileWriter);
 
         for(var dado : arestas){
@@ -161,6 +131,7 @@ public class Grafo<TIPO> {
         }
 
         buffWrite.write(Integer.toString(custo));
+        buffWrite.newLine();
 
         try{
             buffWrite.close();

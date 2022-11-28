@@ -19,5 +19,5 @@ Abra o terminal na pasta dos arquivos e digite:
 javac App.java
 ```
 ```
-java App arquivos/input.txt
+java App arquivos/input1.txt
 ```
