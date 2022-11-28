@@ -27,12 +27,4 @@ public class Aresta<TIPO> implements Comparable<Aresta<TIPO>>{
     public int compareTo(Aresta<TIPO> o) {
         return this.custo - o.getCusto();
     }
-
-    public boolean containsVertice(Vertice<TIPO> vertice){
-        if(this.inicio.equals(vertice) || this.fim.equals(vertice)){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }

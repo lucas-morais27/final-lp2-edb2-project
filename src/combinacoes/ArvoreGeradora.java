@@ -9,23 +9,25 @@ import java.util.List;
 
 import Grafos.Aresta;
 import Grafos.Grafo;
+import Grafos.Vertice;
 
-public class ArvoresGeradoras<TIPO>{
-    private List<String> linhas = new LinkedList<>();
+public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
+    private ArrayList<Aresta<TIPO>> arestas;
+    private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> tmp;
-    private Grafo<TIPO> grafo;
     private int numMaxArestas;
     private int custoMinimo = 0;
 
-    public ArvoresGeradoras(Grafo<TIPO> grafo, int numMaxArestas) throws IOException {
+    public ArvoreGeradora(ArrayList<Aresta<TIPO>> arestas, ArrayList<Vertice<TIPO>> vertices, int numMaxArestas) throws IOException {
         this.tmp = new ArrayList<Aresta<TIPO>>();
-        this.grafo = grafo;
+        this.arestas = arestas;
+        this.vertices = vertices;
         this.numMaxArestas = numMaxArestas;
     }
        
     private void combinacoes(ArrayList<Aresta<TIPO>> n, int left, int k) throws NumberFormatException, IOException {
         if (k == 0){
-            String[] resultado = grafo.validaArvore(tmp, numMaxArestas).split(" ");
+            String[] resultado = validaArvore(tmp, vertices, numMaxArestas).split(" ");
             if(resultado[0].equals("true")){
                 if(custoMinimo == 0){
                     custoMinimo = Integer.parseInt(resultado[1]);
@@ -34,8 +36,7 @@ public class ArvoresGeradoras<TIPO>{
                         custoMinimo = Integer.parseInt(resultado[1]);
                     }
                 }
-                
-                grafo.escreveSolucao(tmp, Integer.parseInt(resultado[1]), "../src/arquivos/solucao.txt");
+                escreveSolucao(tmp, Integer.parseInt(resultado[1]), "../src/arquivos/solucao.txt");
             }
             return;
         }
@@ -48,18 +49,19 @@ public class ArvoresGeradoras<TIPO>{
     }
 
     public void geraArvores() throws NumberFormatException, IOException {
-        combinacoes(grafo.getArestas(), 0, grafo.getNumVertices()-1);
-        escreveMinimo("../src/arquivos/solucao.txt");
+        combinacoes(arestas, 0, vertices.size()-1);
+        escreveArvoreMinima("../src/arquivos/solucao.txt");
     }
 
-    public void escreveMinimo(String entrada) throws IOException {
+    public void escreveArvoreMinima(String entrada) throws IOException {
+        List<String> linhas = new LinkedList<>();
         FileReader fileRead = new FileReader(entrada);
         BufferedReader buffRead = new BufferedReader(fileRead);
 		String linha = "";
 		while (true) {
             linha = buffRead.readLine();
 			if (linha != null) {
-				this.linhas.add(linha);
+				linhas.add(linha);
 			} else {
                 break;
             }		
@@ -75,7 +77,7 @@ public class ArvoresGeradoras<TIPO>{
                 if (Character.isDigit(c)) {
                     if(Integer.parseInt(s) == this.custoMinimo){
                         vetorString.add(s);
-                        grafo.escreveSolucao(vetorString);
+                        escreveSolucao(vetorString);
                         break;
                     } else {
                         vetorString.clear();

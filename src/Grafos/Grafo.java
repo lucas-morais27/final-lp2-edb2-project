@@ -6,22 +6,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import combinacoes.ArvoresGeradoras;
+import combinacoes.ArvoreGeradora;
 import conjuntos.ConjuntoDisjunto;
 
 
 public class Grafo<TIPO> {
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
-    private ConjuntoDisjunto<TIPO> floresta;
-    private ArvoresGeradoras<TIPO> arvoresGeradoras;
     private int numVertices;
     private int numMaxArestas;
 
     public Grafo() throws IOException {
         this.arestas = new ArrayList<>();
         this.vertices = new ArrayList<>();
-        this.floresta = new ConjuntoDisjunto<>();
     }
 
     public ArrayList<Aresta<TIPO>> getArestas() {
@@ -76,11 +73,12 @@ public class Grafo<TIPO> {
         return numVertices;
     }
 
-    public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial, int numMaxArestas) throws IOException{
+    public String validaArvore(ArrayList<Aresta<TIPO>> arvoreEmPotencial, ArrayList<Vertice<TIPO>> vertices, int numMaxArestas) throws IOException{
+        ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
         ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
         int custoTotal = 0;
 
-        floresta.criaConjunto(this.vertices);
+        floresta.criaConjunto(vertices);
         //clearEntradaeSaida(this.vertices);
         for(Aresta<TIPO> dado : arvoreEmPotencial){
             if(floresta.uneElementos(dado.getInicio(), dado.getFim(), numMaxArestas)){
@@ -91,17 +89,17 @@ public class Grafo<TIPO> {
             }
         }
 
-        if(arestasValidas.size() < this.vertices.size()-1){
-            floresta.clearConjunto();
+        if(arestasValidas.size() < vertices.size()-1){
+            //floresta.clearConjunto();
             return "false" + " " + 0;
         }else{
-            floresta.clearConjunto();
+            //floresta.clearConjunto();
             return "true" + " " + custoTotal;
         }   
     }
 
     public void allArvoresGeradoras() throws IOException {
-        arvoresGeradoras = new ArvoresGeradoras<>(this, this.numMaxArestas);
+        ArvoreGeradora<TIPO> arvoresGeradoras = new ArvoreGeradora<>(this.arestas, this.vertices, this.numMaxArestas);
         arvoresGeradoras.geraArvores();
     }
 
