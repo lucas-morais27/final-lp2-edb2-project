@@ -1,5 +1,6 @@
 package Grafos;
 
+
 public class Aresta<TIPO> implements Comparable<Aresta<TIPO>>{
     private int custo;
     private Vertice<TIPO> inicio;

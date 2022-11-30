@@ -7,14 +7,19 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.text.html.StyleSheet;
+
 import Grafos.Aresta;
 import Grafos.Grafo;
 import Grafos.Vertice;
 import conjuntos.ConjuntoDisjunto;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
 
-public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
+public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
+    private Graph graph;
     private ArrayList<Aresta<TIPO>> tmp;
     private int numMaxArestas;
     private int custoArvoreMinima = 0;
@@ -38,7 +43,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
                         custoArvoreMinima = Integer.parseInt(resultado[1]);
                     }
                 }
-                escreveSolucao(tmp, Integer.parseInt(resultado[1]), "../src/arquivos/solucao.txt");
+                escreveSolucao(tmp, Integer.parseInt(resultado[1]), "src/arquivos/solucao.txt");
             }
             return;
         }
@@ -52,7 +57,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
 
     public void geraArvores() throws NumberFormatException, IOException {
         combinacoes(arestas, 0, vertices.size()-1);
-        escreveArvoreMinima("../src/arquivos/solucao.txt");
+        escreveArvoreMinima("src/arquivos/solucao.txt");
     }
 
     public void escreveArvoreMinima(String entrada) throws IOException {
@@ -79,6 +84,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
                 if (Character.isDigit(c)) {
                     if(Integer.parseInt(s) == this.custoArvoreMinima){
                         vetorString.add(s);
+                        constroiArvore(vetorString);
                         escreveSolucao(vetorString);
                         break;
                     } else {
@@ -119,5 +125,29 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
             //floresta.clearConjunto();
             return "true" + " " + custoTotal;
         }   
+    }
+
+    public void constroiArvore(LinkedList<String> arv){
+        System.setProperty("org.graphstream.ui", "swing");
+		
+		graph = new SingleGraph("Grafo");
+        String styleSheet = "node {" + "size: 30px, 30px;" + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" + "}";
+        graph.setAttribute("ui.stylesheet", styleSheet);
+
+        for (Vertice<TIPO> vertice : vertices) {
+            graph.addNode((String)vertice.getDado()).setAttribute("ui.label", (String)vertice.getDado());
+        }
+
+        for (int ii=0; ii < arv.size(); ii++) {
+            if(ii < arv.size()-1){
+                String[] temp = arv.get(ii).split(" --> ");
+                graph.addEdge(temp[0] + temp[1], temp[0], temp[1]);                
+            }
+        }
+    }
+
+    @Override
+    public void mostraInterfaceGrafica() {
+        this.graph.display();
     }
 }

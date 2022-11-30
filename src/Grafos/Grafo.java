@@ -5,12 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
 
+import interfaces.InterfaceGrafica;
 import combinacoes.ArvoreGeradora;
 
-public class Grafo<TIPO> {
+public class Grafo<TIPO> implements InterfaceGrafica{
     protected ArrayList<Aresta<TIPO>> arestas;
     protected ArrayList<Vertice<TIPO>> vertices;
+    private ArvoreGeradora<TIPO> arvoresGeradoras;
     private int numVertices;
     private int numMaxArestas;
 
@@ -77,12 +81,12 @@ public class Grafo<TIPO> {
     }
 
     public void allArvoresGeradoras() throws IOException {
-        ArvoreGeradora<TIPO> arvoresGeradoras = new ArvoreGeradora<>(this.arestas, this.vertices, this.numMaxArestas);
+        arvoresGeradoras = new ArvoreGeradora<>(this.arestas, this.vertices, this.numMaxArestas);
         arvoresGeradoras.geraArvores();
     }
 
     public void escreveSolucao(LinkedList<String> lista)  throws IOException {
-        FileWriter fileWriter = new FileWriter("../src/arquivos/solucaoMenorCusto.txt");
+        FileWriter fileWriter = new FileWriter("src/arquivos/solucaoMenorCusto.txt");
         BufferedWriter buffWrite = new BufferedWriter(fileWriter);
         
         for(var dado : lista){
@@ -115,4 +119,28 @@ public class Grafo<TIPO> {
             System.out.println("Arquivo de solução não pôde ser fechado.");
         }
 	}
+
+    public void mostraArvoreGeradoraMinima(){
+        arvoresGeradoras.mostraInterfaceGrafica();
+    }
+
+
+    @Override
+    public void mostraInterfaceGrafica() {
+        System.setProperty("org.graphstream.ui", "swing");
+		
+		Graph graph = new SingleGraph("Grafo");
+
+        String styleSheet = "node {" + "size: 30px, 30px;" + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" + "}";
+        graph.setAttribute("ui.stylesheet", styleSheet);
+
+        for (Vertice<TIPO> vertice : vertices){
+            graph.addNode((String)vertice.getDado()).setAttribute("ui.label", (String)vertice.getDado());;
+        }
+        for (Aresta<TIPO> aresta : arestas) {
+            graph.addEdge((String)aresta.getInicio().getDado() + aresta.getFim().getDado(), (String)aresta.getInicio().getDado(), (String)aresta.getFim().getDado());
+        }
+
+		graph.display();
+    }
 }
