@@ -11,13 +11,15 @@ import conjuntos.ConjuntoDisjunto;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.Vertice;
+import interfaces.InterfaceGrafica;
 
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
-public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
+public class ArvoreGeradora<TIPO> extends Grafo<TIPO> implements InterfaceGrafica{
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
+    private LinkedList<String> vetorString;
     private Graph graph;
     private ArrayList<Aresta<TIPO>> tmp;
     private int numMaxArestas;
@@ -26,6 +28,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
     public ArvoreGeradora(ArrayList<Aresta<TIPO>> arestas, ArrayList<Vertice<TIPO>> vertices, int numMaxArestas) throws IOException {
         super();
         this.tmp = new ArrayList<Aresta<TIPO>>();
+        this.vetorString = new LinkedList<String>();
         this.arestas = arestas;
         this.vertices = vertices;
         this.numMaxArestas = numMaxArestas;
@@ -73,8 +76,6 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
             }		
 		}
 
-        var vetorString = new LinkedList<String>();
-
         for (var s : linhas){
             char c = s.charAt(0); 
             if (Character.isLetter(c)){
@@ -83,7 +84,6 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
                 if (Character.isDigit(c)) {
                     if(Integer.parseInt(s) == this.custoArvoreMinima){
                         vetorString.add(s);
-                        constroiArvore(vetorString);
                         escreveSolucao(vetorString);
                         break;
                     } else {
@@ -126,7 +126,8 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
         }   
     }
 
-    public void constroiArvore(LinkedList<String> arv){
+    @Override
+    public void mostraInterfaceGrafica() {
         System.setProperty("org.graphstream.ui", "swing");
 		
 		graph = new SingleGraph("Grafo");
@@ -137,16 +138,12 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
             graph.addNode((String)vertice.getDado()).setAttribute("ui.label", (String)vertice.getDado());
         }
 
-        for (int ii=0; ii < arv.size(); ii++) {
-            if(ii < arv.size()-1){
-                String[] temp = arv.get(ii).split(" --> ");
+        for (int ii=0; ii < vetorString.size(); ii++) {
+            if(ii < vetorString.size()-1){
+                String[] temp = vetorString.get(ii).split(" --> ");
                 graph.addEdge(temp[0] + temp[1], temp[0], temp[1]);                
             }
         }
-    }
-
-    @Override
-    public void mostraInterfaceGrafica() {
         this.graph.display();
     }
 }

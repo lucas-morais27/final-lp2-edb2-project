@@ -124,7 +124,6 @@ public class Grafo<TIPO> implements InterfaceGrafica {
         arvoresGeradoras.mostraInterfaceGrafica();
     }
 
-
     @Override
     public void mostraInterfaceGrafica() {
         System.setProperty("org.graphstream.ui", "swing");
