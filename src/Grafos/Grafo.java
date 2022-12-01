@@ -1,4 +1,4 @@
-package Grafos;
+package grafos;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,7 +11,7 @@ import org.graphstream.graph.implementations.*;
 import interfaces.InterfaceGrafica;
 import combinacoes.ArvoreGeradora;
 
-public class Grafo<TIPO> implements InterfaceGrafica{
+public class Grafo<TIPO> implements InterfaceGrafica {
     protected ArrayList<Aresta<TIPO>> arestas;
     protected ArrayList<Vertice<TIPO>> vertices;
     private ArvoreGeradora<TIPO> arvoresGeradoras;

@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import Grafos.Aresta;
-import Grafos.Grafo;
-import Grafos.Vertice;
+
 import conjuntos.ConjuntoDisjunto;
+import grafos.Aresta;
+import grafos.Grafo;
+import grafos.Vertice;
+
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 

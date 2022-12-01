@@ -1,9 +1,11 @@
+package main;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.List;
-import Grafos.*;
+
+import grafos.*;
 
 public class Input {
     private Grafo<String> grafo = new Grafo<>();

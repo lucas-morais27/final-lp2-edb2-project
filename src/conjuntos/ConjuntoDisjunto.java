@@ -4,7 +4,7 @@ package conjuntos;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Grafos.Vertice;
+import grafos.Vertice;
 
 public class ConjuntoDisjunto<TIPO> {
     private HashMap<Vertice<TIPO>, Vertice<TIPO>> raiz = new HashMap<>();
