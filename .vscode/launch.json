@@ -6,17 +6,17 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "main.Main",
-            "projectName": "ProjetoFinal-LP2-EDB2_2f23b291",
-            "args": "src/arquivos/input1.txt"
-        },
-        {
-            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "main.Main",
+            "projectName": "LP2-EDB2_21da1000",
+            "args": "src/arquivos/input1.txt"
         }
     ]
 }

@@ -1,34 +1,30 @@
 package combinacoes;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
-import conjuntos.ConjuntoDisjunto;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.Vertice;
-import interfaces.InterfaceGrafica;
-
+import conjuntos.ConjuntoDisjunto;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
-public class ArvoreGeradora<TIPO> extends Grafo<TIPO> implements InterfaceGrafica{
+public class ArvoreGeradora<TIPO> extends Grafo<TIPO> {
     private ArrayList<Aresta<TIPO>> arestas;
     private ArrayList<Vertice<TIPO>> vertices;
-    private LinkedList<String> vetorString;
+    private HashMap<ArrayList<?>, Integer> arvoresValidas = new HashMap<>();
     private Graph graph;
     private ArrayList<Aresta<TIPO>> tmp;
     private int numMaxArestas;
+    private ArrayList<Aresta<TIPO>> arvoreGeradoraMinima;
     private int custoArvoreMinima = 0;
 
     public ArvoreGeradora(ArrayList<Aresta<TIPO>> arestas, ArrayList<Vertice<TIPO>> vertices, int numMaxArestas) throws IOException {
         super();
         this.tmp = new ArrayList<Aresta<TIPO>>();
-        this.vetorString = new LinkedList<String>();
         this.arestas = arestas;
         this.vertices = vertices;
         this.numMaxArestas = numMaxArestas;
@@ -36,6 +32,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> implements InterfaceGrafic
        
     private void combinacoes(ArrayList<Aresta<TIPO>> n, int left, int k) throws NumberFormatException, IOException {
         if (k == 0){
+            ArrayList<?> dado = (ArrayList<?>)tmp.clone();
             String[] resultado = validaArvore(tmp).split(" ");
             if(resultado[0].equals("true")){
                 if(custoArvoreMinima == 0){
@@ -45,7 +42,6 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> implements InterfaceGrafic
                         custoArvoreMinima = Integer.parseInt(resultado[1]);
                     }
                 }
-                escreveSolucao(tmp, Integer.parseInt(resultado[1]), "src/arquivos/solucao.txt");
             }
             return;
         }
@@ -58,46 +54,13 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> implements InterfaceGrafic
     }
 
     public void geraArvores() throws NumberFormatException, IOException {
-        combinacoes(arestas, 0, vertices.size()-1);
-        escreveArvoreMinima("src/arquivos/solucao.txt");
-    }
-
-    public void escreveArvoreMinima(String entrada) throws IOException {
-        List<String> linhas = new LinkedList<>();
-        FileReader fileRead = new FileReader(entrada);
-        BufferedReader buffRead = new BufferedReader(fileRead);
-		String linha = "";
-		while (true) {
-            linha = buffRead.readLine();
-			if (linha != null) {
-				linhas.add(linha);
-			} else {
+        combinacoes(arestas, 0, vertices.size()-1);   
+        for (Entry<ArrayList<?>, Integer> elemento : arvoresValidas.entrySet()) {
+            if(elemento.getValue() == custoArvoreMinima){
+                escreveSolucao((ArrayList<Aresta<TIPO>>)elemento.getKey(), custoArvoreMinima, "src/arquivos/solucaoMenorCusto.txt");
+                this.arvoreGeradoraMinima = (ArrayList<Aresta<TIPO>>)elemento.getKey();
                 break;
-            }		
-		}
-
-        for (var s : linhas){
-            char c = s.charAt(0); 
-            if (Character.isLetter(c)){
-                vetorString.add(s);
-            }else{
-                if (Character.isDigit(c)) {
-                    if(Integer.parseInt(s) == this.custoArvoreMinima){
-                        vetorString.add(s);
-                        escreveSolucao(vetorString);
-                        break;
-                    } else {
-                        vetorString.clear();
-                    }
-                }
             }
-        }
-
-        try {
-            fileRead.close();
-            buffRead.close();
-        } catch (Exception e1) {
-            System.out.println("Arquivo não pôde ser fechado e/ou buffer não pode ser fechado.");
         }
     }
     
@@ -122,6 +85,8 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> implements InterfaceGrafic
             return "false" + " " + 0;
         }else{
             //floresta.clearConjunto();
+            ArrayList<?> arvoreValida = (ArrayList<?>)arestasValidas.clone();
+            arvoresValidas.put(arvoreValida, custoTotal);
             return "true" + " " + custoTotal;
         }   
     }
@@ -131,19 +96,21 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO> implements InterfaceGrafic
         System.setProperty("org.graphstream.ui", "swing");
 		
 		graph = new SingleGraph("Grafo");
-        String styleSheet = "node {" + "size: 30px, 30px;" + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" + "}";
+        String styleSheet = "node {" 
+        + "size: 30px, 30px;" 
+        + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" 
+        + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" 
+        + "}" + "edge{" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" + "}";
         graph.setAttribute("ui.stylesheet", styleSheet);
 
         for (Vertice<TIPO> vertice : vertices) {
             graph.addNode((String)vertice.getDado()).setAttribute("ui.label", (String)vertice.getDado());
         }
 
-        for (int ii=0; ii < vetorString.size(); ii++) {
-            if(ii < vetorString.size()-1){
-                String[] temp = vetorString.get(ii).split(" --> ");
-                graph.addEdge(temp[0] + temp[1], temp[0], temp[1]);                
-            }
+        for (Aresta<TIPO> aresta : arvoreGeradoraMinima) {
+            graph.addEdge((String)aresta.getInicio().getDado() + aresta.getFim().getDado(), (String)aresta.getInicio().getDado(), (String)aresta.getFim().getDado()).setAttribute("ui.label", aresta.getCusto());;
         }
+
         this.graph.display();
     }
 }

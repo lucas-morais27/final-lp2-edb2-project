@@ -9,7 +9,7 @@
 				"${dependencies}"
 			],
 			"problemMatcher": [],
-			"label": "java (buildArtifact): ProjetoFinal-LP2-EDB2",
+			"label": "java (buildArtifact): LP2-EDB2",
 			"group": {
 				"kind": "build",
 				"isDefault": true

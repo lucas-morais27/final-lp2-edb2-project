@@ -4,16 +4,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
 import interfaces.InterfaceGrafica;
 import combinacoes.ArvoreGeradora;
 
-public class Grafo<TIPO> implements InterfaceGrafica {
-    protected ArrayList<Aresta<TIPO>> arestas;
-    protected ArrayList<Vertice<TIPO>> vertices;
+public class Grafo<TIPO> implements InterfaceGrafica{
+    private ArrayList<Aresta<TIPO>> arestas;
+    private ArrayList<Vertice<TIPO>> vertices;
     private ArvoreGeradora<TIPO> arvoresGeradoras;
     private int numVertices;
     private int numMaxArestas;
@@ -85,24 +84,8 @@ public class Grafo<TIPO> implements InterfaceGrafica {
         arvoresGeradoras.geraArvores();
     }
 
-    public void escreveSolucao(LinkedList<String> lista)  throws IOException {
-        FileWriter fileWriter = new FileWriter("src/arquivos/solucaoMenorCusto.txt");
-        BufferedWriter buffWrite = new BufferedWriter(fileWriter);
-        
-        for(var dado : lista){
-            buffWrite.write(dado);
-            buffWrite.newLine();
-        }
-
-        try{
-            buffWrite.close();
-        } catch (Exception e){
-            System.out.println("Arquivo de solução não pôde ser fechado.");
-        }
-    }
-
     public void escreveSolucao(ArrayList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
-        FileWriter fileWriter = new FileWriter(arquivo, true);
+        FileWriter fileWriter = new FileWriter(arquivo);
         BufferedWriter buffWrite = new BufferedWriter(fileWriter);
 
         for(var dado : arestas){
