@@ -131,14 +131,18 @@ public class Grafo<TIPO> implements InterfaceGrafica{
 		
 		Graph graph = new SingleGraph("Grafo");
 
-        String styleSheet = "node {" + "size: 30px, 30px;" + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" + "}";
+        String styleSheet = "node {" 
+        + "size: 30px, 30px;" 
+        + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" 
+        + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" 
+        + "}" + "edge{" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" + "}";
         graph.setAttribute("ui.stylesheet", styleSheet);
 
         for (Vertice<TIPO> vertice : vertices){
             graph.addNode((String)vertice.getDado()).setAttribute("ui.label", (String)vertice.getDado());;
         }
         for (Aresta<TIPO> aresta : arestas) {
-            graph.addEdge((String)aresta.getInicio().getDado() + aresta.getFim().getDado(), (String)aresta.getInicio().getDado(), (String)aresta.getFim().getDado());
+            graph.addEdge((String)aresta.getInicio().getDado() + aresta.getFim().getDado(), (String)aresta.getInicio().getDado(), (String)aresta.getFim().getDado()).setAttribute("ui.label", aresta.getCusto());
         }
 
 		graph.display();

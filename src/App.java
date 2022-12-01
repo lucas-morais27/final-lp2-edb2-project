@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -24,9 +25,14 @@ public class App {
         JFrame frame = new JFrame("Trabalho LP2-EDB2");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600,250);
+        frame.getContentPane().setBackground(Color.BLACK);
         frame.setLocationRelativeTo(null);
         JButton button = new JButton("Grafo");
         JButton button2 = new JButton("Arvore Geradora Minima");
+        button.setBackground(Color.RED);
+        button2.setBackground(Color.RED);
+        button.setForeground(Color.WHITE);
+        button2.setForeground(Color.WHITE);
         frame.setLayout(null);
 
         button.setBounds(100, 100, 100, 40);
