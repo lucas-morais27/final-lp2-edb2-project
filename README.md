@@ -14,32 +14,51 @@ Para melhor entendimento do objetivo do trabalho, acesse o [link](https://drive.
 <img src="https://w7.pngwing.com/pngs/405/878/png-transparent-java-logo-java-runtime-environment-computer-icons-java-platform-standard-edition-java-miscellaneous-text-logo.png" width="180" height="100"/>
 
 ## Compilar e executar:
-1° Nas opções, ir em Terminal > Configurar Tarefa de Build Padrão:
-Clicar na opção que aparece:
-```
-    java (buildArtifact): <nome do projeto>
-```
 
-2° Nas opções, ir em Executar > Adicionar Configuração:
-Clicar na opção que aparece:
-```
-    Java
-```
-3° Clica com o botão direito na pasta libs e clica na opção "Add Folder to Java Source Path";
+### Utilize a IDE VSCode ou faça as mesmas configurações em outra.
 
-4° No explorador, vai em Java Projects. Clica no projeto com o botão direito do mouse e em seguida em "Configure Classpath". Nas configurações, em Referenced Libraries, adicione os dois arquivos .jar que estão na pasta libs do projeto;
+- Pesquise por Configurar Tarefa de Build Padrão
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187140-49f1f31e-c1ef-49fc-b678-65fb28f66d1e.png"/>
+</div>
 
-5° No arquivo settings.json, altere o caminho: 
-```
-    lib/**/*.jar
-```
-para
-```
-    libs/**/*.jar
-```
+- Nas opções, selecione:
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187138-4236f895-847c-4d04-8581-faa9dfcdd02e.png"/>
+</div>
 
-6° Em launch.json adicione abaixo de projectName:
+- Pesquise por Adicionar Configuração:
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187137-8ff9b461-e24d-431b-97c6-3c3f3adac165.png"/>
+</div>
+
+- Nas opções, selecione Java
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187135-9af49e62-9534-4b8d-bde6-582f14f292cc.png"/>
+</div>
+
+- Na pasta lib, com o botão direito do mouse selecione a opção:
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187148-07dd61a1-f54d-4c36-b107-aa4b4d78a691.png"/>
+</div>
+
+- Na IDE, procure pela aba JAVA PROJECTS, selecione a opção Configure Classpath no projeto
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187147-9925d052-ff7a-4c35-bafd-b5f0aa777aa4.png"/>
+</div>
+
+- Após abrir as configurações do Classhpath, nas referências de bibliotecas adicione os arquivos .jar
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187143-2f9acc62-cfb0-4212-9921-865836f2d0a2.png"/>
+</div>
+
+- No arquivo launch.json, nas configurações, adicione a linha:
 ```
     "args": "src/arquivos/input1.txt"
 ```
-7° Clique no botão de executar e depurar da sua IDE;
+<div align="center">
+<img src="https://user-images.githubusercontent.com/86920019/205187141-85f7dbe9-90bb-44a9-a674-4baf82f36aec.png"/>
+</div>
+Obs.: lembrar da virgula.
+
+- Por último, execute.
