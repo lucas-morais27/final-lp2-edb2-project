@@ -4,9 +4,9 @@ package grafos;
 import java.util.ArrayList;
 
 public class Vertice<TIPO> {
-    private TIPO dado;
     private ArrayList<Aresta<TIPO>> arestasEntrada;
     private ArrayList<Aresta<TIPO>> arestasSaida;
+    private TIPO dado;
 
     public Vertice(TIPO valor){
         this.dado = valor;

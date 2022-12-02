@@ -1,6 +1,5 @@
 package main;
 
-import java.io.File;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +11,6 @@ public class CreateGraphInterface {
     private JFrame frame;
     
     public CreateGraphInterface(Grafo<String> grafo) {
-        File arquivoSolucao = new File("src/arquivos/solucao.txt");
-
-        if(arquivoSolucao.exists()){
-            arquivoSolucao.delete();
-        }
-        
         estilizarFrame(grafo);
     }
 

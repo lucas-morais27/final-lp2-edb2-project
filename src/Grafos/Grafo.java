@@ -11,11 +11,11 @@ import interfaces.InterfaceGrafica;
 import combinacoes.ArvoreGeradora;
 
 public class Grafo<TIPO> implements InterfaceGrafica{
-    private ArrayList<Aresta<TIPO>> arestas;
-    private ArrayList<Vertice<TIPO>> vertices;
     private ArvoreGeradora<TIPO> arvoresGeradoras;
-    private int numVertices;
+    private ArrayList<Vertice<TIPO>> vertices;
+    private ArrayList<Aresta<TIPO>> arestas;
     private int numMaxArestas;
+    private int numVertices;
 
     public Grafo() throws IOException {
         this.arestas = new ArrayList<>();
