@@ -8,6 +8,9 @@ import grafos.Vertice;
 public class ConjuntoDisjunto<TIPO> {
     private HashMap<Vertice<TIPO>, Vertice<TIPO>> raiz = new HashMap<>();
     private HashMap<Vertice<TIPO>, Integer> rank = new HashMap<>();
+    private HashMap<Vertice<TIPO>, Integer> marcados = new HashMap<>();
+    private int count1 = 0;
+    private int count2 = 0;
 
     public void criaConjunto(ArrayList<Vertice<TIPO>> vertices){
         for(Vertice<TIPO> dado : vertices){
@@ -23,11 +26,6 @@ public class ConjuntoDisjunto<TIPO> {
         return vertice;
     };
 
-    public int getRank(Vertice<TIPO> vertice){
-        Vertice<TIPO> x = encontraElemento(vertice);
-        return rank.get(x);
-    };
-
     public boolean uneElementos(Vertice<TIPO> vertice1, Vertice<TIPO> vertice2, int numMaxArestas){
         Vertice<TIPO> x = encontraElemento(vertice1);
         Vertice<TIPO> y = encontraElemento(vertice2);
@@ -36,21 +34,50 @@ public class ConjuntoDisjunto<TIPO> {
             return false;
         }
 
+        if(marcados.get(vertice1) == null){
+            count1 = 0;
+        }else{
+            count1 = marcados.get(vertice1);
+        }
+        if(marcados.get(vertice2) == null){
+            count2 = 0;
+        }else{
+            count2 = marcados.get(vertice2);
+        }
+
         if(rank.get(x) < rank.get(y)){
-            if(vertice2.getQntArestasEntrada() + vertice2.getQntArestasSaida() == numMaxArestas){
-                return false;
+            if(marcados.containsKey(vertice2)){
+                if(marcados.get(vertice2) == numMaxArestas){
+                    return false;
+                }
             }
             raiz.put(x, y);
+            this.count1++;
+            this.count2++;
+            marcados.put(vertice1, count1);
+            marcados.put(vertice2, count2);
         }else if(rank.get(x) > rank.get(y)){
-            if(vertice1.getQntArestasEntrada() + vertice1.getQntArestasSaida() == numMaxArestas){
-                return false;
+            if(marcados.containsKey(vertice1)){
+                if(marcados.get(vertice1) == numMaxArestas){
+                    return false;
+                }
             }
             raiz.put(y, x);
+            this.count1++;
+            this.count2++;
+            marcados.put(vertice1, count1);
+            marcados.put(vertice2, count2);
         }else{
-            if(vertice1.getQntArestasEntrada() + vertice1.getQntArestasSaida() == numMaxArestas){
-                return false;
+            if(marcados.containsKey(vertice1) && marcados.containsKey(vertice2)){
+                if(marcados.get(vertice1) == numMaxArestas || marcados.get(vertice2) == numMaxArestas){
+                    return false;
+                }
             }
             raiz.put(y, x);
+            this.count1++;
+            this.count2++;
+            marcados.put(vertice1, count1);
+            marcados.put(vertice2, count2);
             rank.put(x, rank.get(x)+1);
         }
         return true;

@@ -1,6 +1,5 @@
 package grafos;
 
-
 public class Aresta<TIPO> implements Comparable<Aresta<TIPO>>{
     private Vertice<TIPO> inicio;
     private Vertice<TIPO> fim;

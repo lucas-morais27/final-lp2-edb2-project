@@ -1,17 +1,16 @@
 package grafos;
 
-
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Vertice<TIPO> {
-    private ArrayList<Aresta<TIPO>> arestasEntrada;
-    private ArrayList<Aresta<TIPO>> arestasSaida;
+    private LinkedList<Aresta<TIPO>> arestasEntrada;
+    private LinkedList<Aresta<TIPO>> arestasSaida;
     private TIPO dado;
 
     public Vertice(TIPO valor){
         this.dado = valor;
-        this.arestasEntrada = new ArrayList<>();
-        this.arestasSaida = new ArrayList<>();
+        this.arestasEntrada = new LinkedList<>();
+        this.arestasSaida = new LinkedList<>();
     }
 
     public TIPO getDado(){
@@ -36,10 +35,5 @@ public class Vertice<TIPO> {
     
     public int getQntArestasSaida() {
         return arestasSaida.size();
-    }
-
-    public void clearArestas(){
-        arestasSaida.clear();
-        arestasEntrada.clear();
     }
 }

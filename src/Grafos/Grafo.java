@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
@@ -57,12 +59,6 @@ public class Grafo<TIPO> implements InterfaceGrafica{
         return arestas.get(indice);
     }
 
-    public void clearEntradaeSaida(ArrayList<Vertice<TIPO>> vertices){
-        for(Vertice<TIPO> dado : vertices){
-            dado.clearArestas();
-        }
-    }
-
     public void setNumMaxArestas(int numMaxArestas) {
         this.numMaxArestas = numMaxArestas;
     }
@@ -84,7 +80,7 @@ public class Grafo<TIPO> implements InterfaceGrafica{
         arvoresGeradoras.geraArvores();
     }
 
-    public void escreveSolucao(ArrayList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
+    public void escreveSolucao(LinkedList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
         FileWriter fileWriter = new FileWriter(arquivo);
         BufferedWriter buffWrite = new BufferedWriter(fileWriter);
 

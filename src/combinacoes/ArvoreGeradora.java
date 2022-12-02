@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import grafos.Aresta;
@@ -14,8 +15,8 @@ import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
 public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
-    private HashMap<ArrayList<?>, Integer> arvoresValidas;
-    private ArrayList<Aresta<TIPO>> arvoreGeradoraMinima;
+    private HashMap<LinkedList<?>, Integer> arvoresValidas;
+    private LinkedList<Aresta<TIPO>> arvoreGeradoraMinima;
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
     private LinkedList<Aresta<TIPO>> tmp;
@@ -57,10 +58,10 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
     @SuppressWarnings("unchecked")
     public void geraArvores() throws NumberFormatException, IOException {
         combinacoes(arestas, 0, vertices.size()-1);   
-        for (Entry<ArrayList<?>, Integer> elemento : arvoresValidas.entrySet()) {
+        for (Entry<LinkedList<?>, Integer> elemento : arvoresValidas.entrySet()) {
             if(elemento.getValue() == custoArvoreMinima){
-                escreveSolucao((ArrayList<Aresta<TIPO>>)elemento.getKey(), custoArvoreMinima, "src/arquivos/solucaoMenorCusto.txt");
-                this.arvoreGeradoraMinima = new ArrayList<>((ArrayList<Aresta<TIPO>>)elemento.getKey());
+                escreveSolucao((LinkedList<Aresta<TIPO>>)elemento.getKey(), custoArvoreMinima, "src/arquivos/solucaoMenorCusto.txt");
+                this.arvoreGeradoraMinima = new LinkedList<>((LinkedList<Aresta<TIPO>>)elemento.getKey());
                 break;
             }
         }
@@ -68,24 +69,20 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
     
     public String validaArvore(LinkedList<Aresta<TIPO>> arvoreEmPotencial) throws IOException{
         ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
-        ArrayList<Aresta<TIPO>> arestasValidas = new ArrayList<>();
+        LinkedList<Aresta<TIPO>> arestasValidas = new LinkedList<>();
         int custoTotal = 0;
 
         floresta.criaConjunto(vertices);
-        clearEntradaeSaida(vertices);
         for(Aresta<TIPO> dado : arvoreEmPotencial){
             if(floresta.uneElementos(dado.getInicio(), dado.getFim(), this.numMaxArestas)){
-                dado.getInicio().addArestaSaida(dado);
-                dado.getFim().addArestaEntrada(dado);
                 custoTotal += dado.getCusto();
                 arestasValidas.add(dado);
             }
         }
-
         if(arestasValidas.size() < vertices.size()-1){
             return "false" + " " + 0;
         }else{
-            ArrayList<?> arvoreValida = (ArrayList<?>)arestasValidas.clone();
+            LinkedList<?> arvoreValida = (LinkedList<?>)arestasValidas.clone();
             arvoresValidas.put(arvoreValida, custoTotal);
             return "true" + " " + custoTotal;
         }   
