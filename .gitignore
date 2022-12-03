@@ -1,6 +1,6 @@
 .vscode
 /bin
-/src/Grafos/*.class
+/src/grafos/*.class
 /src/combinacoes/*.class
 /src/conjuntos/*.class
 /src/permutacao/*.class

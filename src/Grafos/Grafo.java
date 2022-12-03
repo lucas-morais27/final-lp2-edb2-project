@@ -13,7 +13,7 @@ import interfaces.InterfaceGrafica;
 import combinacoes.ArvoreGeradora;
 
 public class Grafo<TIPO> implements InterfaceGrafica{
-    private ArvoreGeradora<TIPO> arvoresGeradoras;
+    private ArvoreGeradora<TIPO> arvoreGeradora;
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
     private int numMaxArestas;
@@ -22,14 +22,6 @@ public class Grafo<TIPO> implements InterfaceGrafica{
     public Grafo() throws IOException {
         this.arestas = new ArrayList<>();
         this.vertices = new ArrayList<>();
-    }
-
-    public ArrayList<Aresta<TIPO>> getArestas() {
-        return this.arestas;
-    }
-
-    public ArrayList<Vertice<TIPO>> getVertices() {
-        return this.vertices;
     }
 
     public void addVertice(TIPO dado){
@@ -46,17 +38,13 @@ public class Grafo<TIPO> implements InterfaceGrafica{
         arestas.add(nova);
     }
 
-    public Vertice<TIPO> getVertice(TIPO dado){
+    private Vertice<TIPO> getVertice(TIPO dado){
         for(Vertice<TIPO> vertice : this.vertices){
             if(vertice.getDado().equals(dado)){
                 return vertice;
             }
         }
         return null;
-    }
-
-    public Aresta<TIPO> getAresta(int indice){
-        return arestas.get(indice);
     }
 
     public void setNumMaxArestas(int numMaxArestas) {
@@ -71,16 +59,12 @@ public class Grafo<TIPO> implements InterfaceGrafica{
         return numVertices;
     }
 
-    public int getNumMaxArestas() {
-        return numMaxArestas;
+    public void criaArvores() throws IOException {
+        arvoreGeradora = new ArvoreGeradora<>(this.arestas, this.vertices, this.numMaxArestas);
+        arvoreGeradora.geraArvores();
     }
 
-    public void allArvoresGeradoras() throws IOException {
-        arvoresGeradoras = new ArvoreGeradora<>(this.arestas, this.vertices, this.numMaxArestas);
-        arvoresGeradoras.geraArvores();
-    }
-
-    public void escreveSolucao(LinkedList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
+    protected void escreveSolucao(LinkedList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
         FileWriter fileWriter = new FileWriter(arquivo);
         BufferedWriter buffWrite = new BufferedWriter(fileWriter);
 
@@ -100,20 +84,21 @@ public class Grafo<TIPO> implements InterfaceGrafica{
 	}
 
     public void mostraArvoreGeradoraMinima(){
-        arvoresGeradoras.mostraInterfaceGrafica();
+        arvoreGeradora.mostraInterfaceGrafica();
     }
 
     @Override
     public void mostraInterfaceGrafica() {
         System.setProperty("org.graphstream.ui", "swing");
-		
+
 		Graph graph = new SingleGraph("Grafo");
 
         String styleSheet = "node {" 
         + "size: 30px, 30px;" 
         + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" 
-        + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" 
-        + "}" + "edge{" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" + "}";
+        + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px; }" 
+        + "edge{" 
+        + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%; }";
         graph.setAttribute("ui.stylesheet", styleSheet);
 
         for (Vertice<TIPO> vertice : vertices){
@@ -123,6 +108,6 @@ public class Grafo<TIPO> implements InterfaceGrafica{
             graph.addEdge((String)aresta.getInicio().getDado() + aresta.getFim().getDado(), (String)aresta.getInicio().getDado(), (String)aresta.getFim().getDado()).setAttribute("ui.label", aresta.getCusto());
         }
 
-		graph.display();
+        graph.display();
     }
 }

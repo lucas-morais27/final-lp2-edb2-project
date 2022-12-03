@@ -17,23 +17,11 @@ public class Vertice<TIPO> {
         return this.dado;
     }
 
-    public void setDado(TIPO dado){
-        this.dado = dado;
-    }
-
-    public void addArestaEntrada(Aresta<TIPO> aresta){
+    protected void addArestaEntrada(Aresta<TIPO> aresta){
         this.arestasEntrada.add(aresta);
     }
 
-    public void addArestaSaida(Aresta<TIPO> aresta){
+    protected void addArestaSaida(Aresta<TIPO> aresta){
         this.arestasSaida.add(aresta);
-    }
-
-    public int getQntArestasEntrada() {
-        return arestasEntrada.size();
-    }
-    
-    public int getQntArestasSaida() {
-        return arestasSaida.size();
     }
 }

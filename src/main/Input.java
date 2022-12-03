@@ -39,11 +39,11 @@ public class Input {
 		
     }
 
-    public Grafo<String> getGrafo(){
+    protected Grafo<String> getGrafo(){
         return this.grafo;
     }
 
-    public void buildGrafo() {
+    private void buildGrafo() {
         for (int ii = 0; ii < linhas.size(); ii++) {
             if (ii == 0) {
                 grafo.setNumVertices(Integer.parseInt(linhas.get(ii).split(" ")[0]));
