@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.TreeMap;
 
 import grafos.Aresta;
@@ -60,14 +61,6 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         var arvoresOrdenadas = ordenaArvores(arvoresValidas);
         var entry = arvoresOrdenadas.firstEntry();
 
-        /* IMPRIME TODOS
-        for (var item : arvoresOrdenadas.entrySet()) {
-            System.out.println("key: " + item.getKey() + " value: " + item.getValue());
-        }
-        IMPRIME O PRIMERO
-        System.out.println("PRIMEIRO: key: " + entry.getKey() + " value: " + entry.getValue());
-        */
-
         escreveSolucao((LinkedList<Aresta<TIPO>>)entry.getKey(), entry.getValue() , "src/arquivos/solucaoMenorCusto.txt");
         this.arvoreGeradoraMinima = new LinkedList<>((LinkedList<Aresta<TIPO>>)entry.getKey());
     }
@@ -110,16 +103,19 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
     }
 
     @Override
-    public void mostraInterfaceGrafica() {        
+    public void mostraInterfaceGrafica(){        
         System.setProperty("org.graphstream.ui", "swing");
 
 		graph = new SingleGraph("Grafo");
 
+        Random ale = new Random();
+
         String styleSheet = "node {" 
-        + "size: 30px, 30px;" 
-        + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" 
+        + "size: 35px, 35px;" 
+        + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');"
         + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" 
-        + "}" + "edge {" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" + "}";
+        + "}" + "node#" + (String)vertices.get(ale.nextInt(1, vertices.size())).getDado() + "{ fill-image: url('src/arquivos/casaRoteador.png'); }" 
+        + "edge {" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" + "fill-color: black; shadow-mode: plain; shadow-width: 2px; shadow-color: #836FFF; shadow-offset: 0px;" + "}";
         graph.setAttribute("ui.stylesheet", styleSheet);
 
         for (Vertice<TIPO> vertice : vertices) {
@@ -129,6 +125,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         for (Aresta<TIPO> aresta : arvoreGeradoraMinima) {
             graph.addEdge((String)aresta.getInicio().getDado() + aresta.getFim().getDado(), (String)aresta.getInicio().getDado(), (String)aresta.getFim().getDado()).setAttribute("ui.label", aresta.getCusto());;
         }
+
         this.graph.display();
     }
 }

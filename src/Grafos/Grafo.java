@@ -95,10 +95,10 @@ public class Grafo<TIPO> implements InterfaceGrafica{
 
         String styleSheet = "node {" 
         + "size: 30px, 30px;" 
-        + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');" 
+        + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');"
         + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px; }" 
-        + "edge{" 
-        + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%; }";
+        + "edge{" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" 
+        + "fill-color: black; shadow-mode: plain; shadow-width: 1px; shadow-color: black; shadow-offset: 0px;" + "}";
         graph.setAttribute("ui.stylesheet", styleSheet);
 
         for (Vertice<TIPO> vertice : vertices){
