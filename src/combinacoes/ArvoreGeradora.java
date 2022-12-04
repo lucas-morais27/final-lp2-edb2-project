@@ -21,7 +21,6 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
     private LinkedList<Aresta<TIPO>> arestasTemporarias;
-    private int custoArvoreMinima = 0;
     private int numMaxArestas;
     private Graph graph;
 
@@ -36,15 +35,6 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
     private void combinacoes(ArrayList<Aresta<TIPO>> n, int left, int k) throws NumberFormatException, IOException {
         if (k == 0) {
             String[] resultado = validaArvore(arestasTemporarias).split(" ");
-            if (resultado[0].equals("true")) {
-                if (custoArvoreMinima == 0) {
-                    this.custoArvoreMinima = Integer.parseInt(resultado[1]);
-                } else {
-                    if (this.custoArvoreMinima > Integer.parseInt(resultado[1])) {
-                        this.custoArvoreMinima = Integer.parseInt(resultado[1]);
-                    }
-                }
-            }
             return;
         }
   
