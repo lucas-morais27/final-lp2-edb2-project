@@ -34,7 +34,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
        
     private void combinacoes(ArrayList<Aresta<TIPO>> n, int left, int k) throws NumberFormatException, IOException {
         if (k == 0) {
-            String[] resultado = validaArvore(arestasTemporarias).split(" ");
+            validaArvore(arestasTemporarias);
             return;
         }
   
@@ -47,7 +47,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
 
     @SuppressWarnings("unchecked")
     public void geraArvores() throws NumberFormatException, IOException {
-        combinacoes(arestas, 0, vertices.size()-1);   
+        combinacoes(arestas, 0, vertices.size()-1);
         var arvoresOrdenadas = ordenaArvores(arvoresValidas);
         var entry = arvoresOrdenadas.firstEntry();
 
@@ -55,7 +55,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         this.arvoreGeradoraMinima = new LinkedList<>((LinkedList<Aresta<TIPO>>)entry.getKey());
     }
     
-    private String validaArvore(LinkedList<Aresta<TIPO>> arvoreEmPotencial) throws IOException{
+    private void validaArvore(LinkedList<Aresta<TIPO>> arvoreEmPotencial) throws IOException{
         ConjuntoDisjunto<TIPO> floresta = new ConjuntoDisjunto<>();
         LinkedList<Aresta<TIPO>> arestasValidas = new LinkedList<>();
         int custoTotal = 0;
@@ -67,12 +67,9 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
                 arestasValidas.add(dado);
             }
         }
-        if (arestasValidas.size() < vertices.size()-1) {
-            return "false" + " " + 0;
-        } else {
+        if (arestasValidas.size() == vertices.size()-1) {
             LinkedList<?> arvoreValida = (LinkedList<?>)arestasValidas.clone();
             arvoresValidas.put(arvoreValida, custoTotal);
-            return "true" + " " + custoTotal;
         }   
     }
 
