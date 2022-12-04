@@ -32,26 +32,28 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         this.vertices = vertices;
     }
        
-    private void combinacoes(ArrayList<Aresta<TIPO>> n, int left, int k) throws NumberFormatException, IOException {
-        if (k == 0) {
+    private void combinacoes(ArrayList<Aresta<TIPO>> arestas, 
+                        int contador, int qntElementos) throws IOException {
+
+        if (qntElementos == 0) {
             validaArvore(arestasTemporarias);
             return;
         }
   
-        for (int ii = left; ii < n.size(); ++ii) {
-            arestasTemporarias.add(n.get(ii));
-            combinacoes(n, ii+1, k-1);
+        for (int ii = contador; ii < arestas.size(); ++ii) {
+            arestasTemporarias.add(arestas.get(ii));
+            combinacoes(arestas, ii+1, qntElementos-1);
             arestasTemporarias.remove(arestasTemporarias.get(arestasTemporarias.size() - 1));
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void geraArvores() throws NumberFormatException, IOException {
+    public void geraArvores() throws IOException {
         combinacoes(arestas, 0, vertices.size()-1);
         var arvoresOrdenadas = ordenaArvores(arvoresValidas);
         var entry = arvoresOrdenadas.firstEntry();
 
-        escreveSolucao((LinkedList<Aresta<TIPO>>)entry.getKey(), entry.getValue() , "src/arquivos/solucaoMenorCusto.txt");
+        escreveSolucao((LinkedList<Aresta<TIPO>>)entry.getKey(), entry.getValue(), "src/arquivos/solucaoMenorCusto.txt");
         this.arvoreGeradoraMinima = new LinkedList<>((LinkedList<Aresta<TIPO>>)entry.getKey());
     }
     
@@ -102,7 +104,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');"
         + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" 
         + "}" + "node#" + (String)vertices.get(ale.nextInt(1, vertices.size())).getDado() + "{ fill-image: url('src/arquivos/casaRoteador.png'); }" 
-        + "edge {" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" + "fill-color: black; shadow-mode: plain; shadow-width: 2px; shadow-color: #836FFF; shadow-offset: 0px;" + "}";
+        + "edge {" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" + "fill-color: black; shadow-mode: plain; shadow-width: 2px; shadow-color: #1E90FF; shadow-offset: 0px;" + "}";
         graph.setAttribute("ui.stylesheet", styleSheet);
 
         for (Vertice<TIPO> vertice : vertices) {
