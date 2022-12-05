@@ -11,7 +11,7 @@ public class Input {
     private Grafo<String> grafo = new Grafo<>();
     private List<String> linhas = new LinkedList<>();
 
-    public Input(String entrada) throws IOException {
+    public Input(String entrada) throws IOException { // abertura e leitura do arquivo de entrada
         FileReader fileRead = new FileReader(entrada);
         BufferedReader buffRead = new BufferedReader(fileRead);
 		String linha = "";
@@ -39,11 +39,11 @@ public class Input {
 		
     }
 
-    protected Grafo<String> getGrafo(){
+    protected Grafo<String> getGrafo(){ // retorna o grafo criado
         return this.grafo;
     }
 
-    private void buildGrafo() {
+    private void buildGrafo() { // constroi o grafo
         for (int ii = 0; ii < linhas.size(); ii++) {
             if (ii == 0) {
                 grafo.setNumVertices(Integer.parseInt(linhas.get(ii).split(" ")[0]));

@@ -73,7 +73,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         }   
     }
 
-    private <K, V extends Comparable<V>> TreeMap<K, V> ordenaArvores(final HashMap<K, V> map) {
+    private <K, V extends Comparable<V>> TreeMap<K, V> ordenaArvores(final HashMap<K, V> map) { // ordena as arvores geradoras
         Comparator<K> valorComparador =  new Comparator<K>() {
             public int compare(K valor1, K valor2) {
                 int compare = map.get(valor1).compareTo(map.get(valor2));

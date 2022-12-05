@@ -61,10 +61,10 @@ public class Grafo<TIPO> implements InterfaceGrafica{
 
     public void criaArvores() throws IOException {
         arvoreGeradora = new ArvoreGeradora<>(this.arestas, this.vertices, this.numMaxArestas);
-        arvoreGeradora.geraArvores();
+        arvoreGeradora.geraArvores(); // gera as arvores geradoras do grafo
     }
 
-    protected void escreveSolucao(LinkedList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException {
+    protected void escreveSolucao(LinkedList<Aresta<TIPO>> arestas, int custo, String arquivo) throws IOException { // escreve a arvore geradora minima em um arquivo
         FileWriter fileWriter = new FileWriter(arquivo);
         BufferedWriter buffWrite = new BufferedWriter(fileWriter);
 
