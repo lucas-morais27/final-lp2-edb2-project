@@ -89,25 +89,25 @@ public class Grafo<TIPO> implements InterfaceGrafica{
 
     @Override
     public void mostraInterfaceGrafica() {
-        System.setProperty("org.graphstream.ui", "swing");
+        System.setProperty("org.graphstream.ui", "swing"); // cria a janela da interface gráfica
 
-		Graph graph = new SingleGraph("Grafo");
-
+		Graph graph = new SingleGraph("Grafo"); // cria o grafo
+        // estilização do grafo (CSS)
         String styleSheet = "node {" 
         + "size: 30px, 30px;" 
         + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');"
         + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px; }" 
         + "edge{" + "text-alignment: under; text-offset: 4px, 3px; text-color: #444; text-style:bold; text-size: 13%;" 
         + "fill-color: black; shadow-mode: plain; shadow-width: 1px; shadow-color: black; shadow-offset: 0px;" + "}";
-        graph.setAttribute("ui.stylesheet", styleSheet);
+        graph.setAttribute("ui.stylesheet", styleSheet); // adiciona o atributo de estilização ao grafo
 
-        for (Vertice<TIPO> vertice : vertices){
+        for (Vertice<TIPO> vertice : vertices){  // adiciona os vertices do grafo + identificadores
             graph.addNode((String)vertice.getDado()).setAttribute("ui.label", (String)vertice.getDado());;
         }
-        for (Aresta<TIPO> aresta : arestas) {
+        for (Aresta<TIPO> aresta : arestas) {  // adiciona as arestas do grafo + custo
             graph.addEdge((String)aresta.getInicio().getDado() + aresta.getFim().getDado(), (String)aresta.getInicio().getDado(), (String)aresta.getFim().getDado()).setAttribute("ui.label", aresta.getCusto());
         }
 
-        graph.display();
+        graph.display(); // gera a interface na tela
     }
 }
