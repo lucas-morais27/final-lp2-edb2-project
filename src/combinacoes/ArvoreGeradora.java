@@ -18,9 +18,9 @@ import org.graphstream.graph.implementations.*;
 public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
     private HashMap<LinkedList<?>, Integer> arvoresValidas;
     private LinkedList<Aresta<TIPO>> arvoreGeradoraMinima;
+    private LinkedList<Aresta<TIPO>> arestasTemporarias;
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
-    private LinkedList<Aresta<TIPO>> arestasTemporarias;
     private int numMaxArestas;
     private Graph graph;
 
@@ -98,7 +98,7 @@ public class ArvoreGeradora<TIPO> extends Grafo<TIPO>{
         Random ale = new Random();
         // estilização do grafo (CSS)
         String styleSheet = "node {" 
-        + "size: 35px, 35px;" 
+        + "size: 32px, 32px;" 
         + "fill-mode: image-scaled; fill-image: url('src/arquivos/609803.png');"
         + "text-alignment: under; text-color: white; text-style: bold; text-background-mode: rounded-box; text-background-color: #222C; text-padding: 1px; text-offset: 0px, 2px;" 
         + "}" + "node#" + (String)vertices.get(ale.nextInt(1, vertices.size())).getDado() + "{ fill-image: url('src/arquivos/casaRoteador.png'); }" 

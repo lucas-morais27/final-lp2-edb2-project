@@ -7,8 +7,8 @@ import grafos.Vertice;
 
 public class ConjuntoDisjunto<TIPO> {
     private HashMap<Vertice<TIPO>, Vertice<TIPO>> raiz = new HashMap<>();
-    private HashMap<Vertice<TIPO>, Integer> rank = new HashMap<>();
     private HashMap<Vertice<TIPO>, Integer> marcados = new HashMap<>();
+    private HashMap<Vertice<TIPO>, Integer> rank = new HashMap<>();
 
     public void criaConjunto(ArrayList<Vertice<TIPO>> vertices) {
         for (Vertice<TIPO> dado : vertices) { // cada vertice vira uma arvore/conjunto disjunto unitario
