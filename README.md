@@ -1,4 +1,4 @@
-# *Trabalho da Unidade 3*
+# Projeto da Unidade 3
 ## Linguagem de Programação II e Estruturas de Dados II
 ## Autores
 [Bianca Miranda](https://github.com/Bianca-Mirtes)<br>
