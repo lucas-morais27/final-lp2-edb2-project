@@ -13,6 +13,20 @@ Para melhor entendimento do objetivo do trabalho, acesse o [link](https://drive.
 ## Linguagem de programação
 <img src="https://w7.pngwing.com/pngs/405/878/png-transparent-java-logo-java-runtime-environment-computer-icons-java-platform-standard-edition-java-miscellaneous-text-logo.png" width="180" height="100"/>
 
+## Conceitos implementados
+- Encapsulamento
+- Modularização e padronização
+    - Nomeação de classes e métodos segundo padrões;
+    - Separação das classes em pacotes
+    - Design de Classes (responsabilidade e coesão)
+- Herança
+- Polimorfismo
+- Classes abstratas
+- Interfaces
+- Tratamento de exceções
+- Estrutura de dados simples (qualquer coleção)
+- Estruturas de dados avançadas (heap, conjuntos disjuntos, árvores balanceadas etc.)
+
 ## Compilar e executar:
 
 ### Utilize a IDE VSCode ou faça as mesmas configurações em outra.
