@@ -1,18 +1,11 @@
 # Projeto da Unidade 3
 ## Linguagem de Programação II e Estruturas de Dados II
-## Autores
-[Bianca Miranda](https://github.com/Bianca-Mirtes)<br>
-[Lucas Morais](https://github.com/lucas-morais27)<br>
-[Poliane Brito](https://github.com/iampoliane)
-<br>
 
-## Especificação
-Para melhor entendimento do objetivo do trabalho, acesse o [link](https://drive.google.com/file/d/1pZ0WzLBBl6FwaZVvyuCQpYy8izPQ3GnF/view?usp=sharing).
-<br>
-
-## Linguagem de programação
-<img src="https://w7.pngwing.com/pngs/405/878/png-transparent-java-logo-java-runtime-environment-computer-icons-java-platform-standard-edition-java-miscellaneous-text-logo.png" width="180" height="100"/>
-
+### Especificação
+Para melhor entendimento do objetivo do trabalho, acesse o [Google Drive](https://drive.google.com/file/d/1pZ0WzLBBl6FwaZVvyuCQpYy8izPQ3GnF/view?usp=sharing).<br>
+### Linguagem/ferramenta utilizada:
+   <img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg" /> <img width='35' height='35' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" />
+          
 ## Conceitos implementados
 - Encapsulamento
 - Modularização e padronização
@@ -94,3 +87,9 @@ Obs.: Caso não execute, não tem problema, siga o próximo passo.
 Obs.: O nome do projeto é gerado aleatóriamente, não é necessário alterar. Lembrar da virgula.
 
 - Por último, execute novamente.
+
+## Autores
+- [Bianca Miranda](https://github.com/Bianca-Mirtes) 👩‍💻
+- [Lucas Morais](https://github.com/lucas-morais27) 👨‍💻
+- [Poliane Brito](https://github.com/iampoliane) 👩‍💻
+<br>
